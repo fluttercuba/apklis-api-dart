@@ -4,6 +4,8 @@ API for [Apklis](https://www.apklis.cu) (Cuban Android App Store) implemented in
 
 Supports [Dio package](https://pub.dev/packages/dio) and [Http package](https://pub.dev/packages/http). In addition to the packages that inherit from these.
 
+[Dart package](https://pub.dev/packages/apklis_api)
+
 ## Getting Started
 
 Initialize an instance of the ApklisApi class by passing it the package name as a parameter:
