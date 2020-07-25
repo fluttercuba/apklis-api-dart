@@ -1,0 +1,19 @@
+name: apklis_api
+description: API for Apklis (Cuban Android App Store) implemented in Dart
+version: 0.0.1
+author: Leynier Gutiérrez González
+homepage: https://github.com/leynier/apklis-api
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  dio: ^3.0.9
+  http: ^0.12.2
+  json_annotation: ^3.0.1
+
+dev_dependencies:
+  json_serializable: ^3.3.0
+  build_runner: ^1.10.0
