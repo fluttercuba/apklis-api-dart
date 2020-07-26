@@ -7,26 +7,28 @@ import 'package:dio/dio.dart';
 import 'package:http/http.dart';
 
 class ApklisApi {
-  static const URL = 'https://api.apklis.cu/v2/application/?package_name=';
-  final String url;
-  final String packageName;
+  static const API_URL = 'https://api.apklis.cu';
   final Dio dioClient;
   final BaseClient httpClient;
 
-  ApklisApi(this.packageName, {this.dioClient, this.httpClient})
-      : url = URL + packageName;
+  const ApklisApi({this.dioClient, this.httpClient});
 
-  Future<ApklisApiResult> get() async {
+  Future<ApklisApiResult> get(List<String> apps) async {
     if (httpClient != null) {
-      return await getWithHttp();
+      return await getWithHttp(apps);
     } else if (dioClient != null) {
-      return await getWithDio();
+      return await getWithDio(apps);
     } else {
-      return await getWithHttp(httpClient: Client());
+      return await getWithHttp(apps, httpClient: Client());
     }
   }
 
-  Future<ApklisApiResult> getWithDio({Dio dioClient}) async {
+  Future<ApklisApiResult> getWithDio(
+    List<String> apps, {
+    Dio dioClient,
+  }) async {
+    final queryString = apps.map((e) => 'package_name=$e').join('&');
+    final url = '$API_URL/v2/application/?$queryString';
     dioClient ??= this.dioClient;
     if (dioClient == null) {
       return ApklisApiResult(
@@ -55,7 +57,12 @@ class ApklisApi {
     }
   }
 
-  Future<ApklisApiResult> getWithHttp({BaseClient httpClient}) async {
+  Future<ApklisApiResult> getWithHttp(
+    List<String> apps, {
+    BaseClient httpClient,
+  }) async {
+    final queryString = apps.map((e) => 'package_name=$e').join('&');
+    final url = '$API_URL/v2/application/?$queryString';
     httpClient ??= this.httpClient;
     if (httpClient == null) {
       return ApklisApiResult(
